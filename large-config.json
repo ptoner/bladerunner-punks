@@ -1,0 +1,29 @@
+{
+    "hostname": "https://ptoner.gitlab.io",
+    "baseURL": "/bladerunner-punks-reader/",
+
+    "showMintPage": false,
+    "showActivityPage": true,
+    "marketplaces": [
+        {
+            "name": "OpenSea",
+            "link": "https://opensea.io/collection/bladerunner-punks"
+        },
+        {
+            "name": "LooksRare"
+        }
+    ],
+    "externalLinks": [
+        {
+            "name": "Discord",
+            "link": "https://discord.gg/NhuCN5s2Xa"
+        },
+        {
+            "name": "Twitter",
+            "link": "https://twitter.com/BladeRunnerPunk"
+        }
+    ],
+
+    "footer": "src/footer.ejs",
+    "additionalStaticPages": "src/additionalStaticPages.json"
+}

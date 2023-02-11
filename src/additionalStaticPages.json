@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Privacy",
+        "locations": ["none"],
+        "contentHTML": "HOOOOOOOOOOOOOOOOOOOOOOrtertetetOOOOOO",
+        "slug": "privacy"
+    },
+    {
+        "name": "Terms of Service",
+        "locations": ["none"],
+        "contentHTML": "HOOOOrrrrOOOOOOOOOOOOOOOOOOOertetOOOOO",
+        "slug": "terms"
+    },
+    {
+        "name": "Disclaimer",
+        "locations": ["none"],
+        "contentHTML": "44444HOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+        "slug": "disclaimer"
+    }
+]
