@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+
+    <style>
+    html {
+        visibility: hidden;
+        opacity: 0;
+    }
+    </style>
+
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, user-scalable=yes, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <title>
+        Leaderboard for BladeRunner Punks    </title>
+
+    <meta property="og:title" content="Leaderboard for BladeRunner Punks" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/bladerunner-punks-reader/leaderboard" />
+    <meta property="og:image" content="https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
+    <meta property="og:description" content="Leaderboard for BladeRunner Punks" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="/bladerunner-punks-reader/leaderboard" />
+    <meta property="twitter:title" content="Leaderboard for BladeRunner Punks" />
+    <meta property="twitter:description" content="Leaderboard for BladeRunner Punks" />
+    <meta property="twitter:image" content="https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
+
+    
+        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/runtime.reader.js"></script>
+        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/vendors.reader.js"></script>
+        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/main.reader.js"></script>
+        
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="view view-main">
+
+            <div class="page" data-name="leaderboard">
+
+                <nav-bar
+                    logo="/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg"
+                    title="Leaderboard"
+                    active="Leaderboard"
+                    show_mint_page="false"
+                    show_activity_page="true"
+                >
+                </nav-bar>
+
+
+                <div class="page-content infinite-scroll-content" id="explore-infinite-scroll">
+
+                    <div class="row">
+            
+                        <div class="fixed-width-content center">
+                            
+                            <div class="hidden-on-load">
+                                <div class="block block-strong inset col-100 no-margin-bottom">
+                                    <div class="breadcrumbs ">
+                                      <div class="breadcrumbs-item">
+                                        <a href="/bladerunner-punks-reader/index.html" class="link">
+                                          Home
+                                        </a>
+                                      </div>       
+                                      <div class="breadcrumbs-separator"></div>
+                                      <div class="breadcrumbs-item breadcrumbs-item-active">
+                                        <a href="/bladerunner-punks-reader/leaderboard" class="link">
+                                            Leaderboard
+                                        </a>
+                                        
+                                      </div> 
+                                    </div>
+                                </div>
+                            
+                                <div class="card">
+                                    <div class="card-header">
+                                        Leaderboard <span class="last-updated">Last updated: ${moment(lastUpdated).fromNow()}</span>
+
+                                    </div>
+                                    <div class="card-content data-table">
+                                        
+                                        <table class="leaderboard-table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="numeric-cell">Rank</th>
+                                                    <th class="label-cell">Address</th>
+                                                    <th>Last Active</th>
+                                                    <th class="numeric-cell">Owned</th>
+                                                    <th class="numeric-cell">Buys</th>
+                                                    <th class="numeric-cell">Sales</th>
+
+                                                </tr>
+                                            </thead>
+                                    
+                                            <tbody>
+                                    
+                                            ${tokenOwners?.map(u => $h`
+                                                <tr>
+                                                    <td class="numeric-cell">
+                                                        ${u.rank}
+                                                    </td>
+
+                                                    <td class="label-cell">
+
+                                                        ${u.ensName ? $h`
+                                                            <a href="/bladerunner-punks-reader/u/?address=${u._id}">${u.ensName}</a>
+                                                        ` : $h`
+                                                            <a href="/bladerunner-punks-reader/u/?address=${u._id}">${u._id ? walletService.truncateEthAddress(u._id) : ' '}</a>
+                                                        `} 
+
+                                                    </td>
+                                        
+                                                    <td>
+                                                        ${u.lastActive ? moment(u.lastActive).fromNow() : ""}
+                                                    </td>
+                                        
+                                                    <td class="numeric-cell">
+                                                        ${u.count}
+                                                    </td>
+                                        
+                                                    <td class="numeric-cell">
+                                                        <strong>${new Intl.NumberFormat('en-US').format(u.salesReport?.buys?.ethValue ? u.salesReport?.buys?.ethValue : 0)}</strong> ETH <br />
+                                                        ${transactionWebService.abbreviateDollars(u.salesReport?.buys?.usdValue ? u.salesReport?.buys?.usdValue : 0, 2)}
+                                                    </td>
+                                  
+                                                    <td class="numeric-cell">
+                                                        <strong>${new Intl.NumberFormat('en-US').format(u.salesReport?.sales?.ethValue ? u.salesReport?.sales?.ethValue : 0)}</strong> ETH <br />
+                                                        ${transactionWebService.abbreviateDollars(u.salesReport?.sales?.usdValue ? u.salesReport?.sales?.usdValue : 0, 2)}
+                                                    </td>
+
+                                                </tr>
+                                            
+                                            `)}
+                                            </tbody>
+                                
+                                        </table>
+                                                                
+                                    </div>
+                                </div>
+
+                                <div class="block margin-top margin-bottom">
+                                    <div class="row">
+                                        <div class="col-50">
+                                            ${showPrevious ? $h`
+                                            <a href="/bladerunner-punks-reader/leaderboard/?pageNumber=${pageNumber - 1}" class="button button-outline color-gray">Previous</a>
+                                            ` : $h` `}
+                                        </div>
+                                        <div class="col-50">
+                                            ${showNext ? $h`
+                                            <a href="/bladerunner-punks-reader/leaderboard/?pageNumber=${pageNumber + 1}" class="button button-fill">Next</a>
+                                            ` : $h` `}
+                                        </div>
+                                    </div>
+                        
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="hide-on-pageinit">
+
+                                <div class="card skeleton-text">
+                                    <div class="card-header">Leaderboard</div>
+                                    <div class="card-content card-content-padding data-table">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
+                                        lobortis et massa ac interdum. Cras consequat felis at consequat hendrerit.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            
+<div class="block block-strong inset">
+
+    <span class="footer-link">
+      <a href="https://largenft.org">Large NFT</a> code licensed under <a href="https://github.com/LargeNFT/large-nft/blob/master/LICENSE.md" class="external">MIT</a>
+    </span>
+
+    |
+
+    <span class="footer-link">
+      <a href="https://github.com/LargeNFT/large-nft" class="external">GitHub</a>
+    </span>
+
+    |
+
+    <span class="footer-link">
+      <a href="https://twitter.com/large_nft" class="external">Twitter</a>
+    </span>
+    
+    <br /><br />
+
+
+    <span class='footer-link'><a href='/bladerunner-punks-reader/privacy.html'>Privacy Policy</a></span> |
+    <span class='footer-link'><a href='/bladerunner-punks-reader/terms.html'>Terms</a></span> | 
+    <span class='footer-link'><a href='/bladerunner-punks-reader/disclaimer.html'>Disclaimer</a></span>
+</div>
+
+
+
+
+
+
+  <style>
+  .footer-link  {
+      margin-right: 5px;
+      margin-left: 5px;
+      display: inline-block;
+  }
+  </style>                        </div>
+                    </div>
+            
+                </div>
+              
+            
+            </div>
+
+        </div>
+
+    </div>
+
+    
+    <script type="module" id="page-init-scripts">
+
+        const init = (props, { $, $f7, $h, $on, $update }) => {
+
+            let tokenOwnerPageService = globalThis.container.get("TokenOwnerPageService")
+            let transactionWebService = globalThis.container.get("TransactionWebService")
+
+            let walletService = globalThis.container.get("WalletService")
+            let moment = globalThis.moment 
+
+
+            let baseURL = '/bladerunner-punks-reader/'
+
+            let tokenOwners
+            let pageNumber = 0
+            let totals = {}
+            let lastUpdated
+
+            let showNext
+            let showPrevious
+
+            const loadLeaderboard = async () => {
+            
+                loading = true
+
+                try  {
+
+                    if ($f7.views.main.router.currentRoute?.query?.pageNumber) {
+                        pageNumber = parseInt($f7.views.main.router.currentRoute?.query?.pageNumber)
+                    }
+
+                    totals = await tokenOwnerPageService.getTotals()
+                    let page = await tokenOwnerPageService.get(pageNumber)
+
+                    tokenOwners = page.tokenOwners
+
+                    let latest = await transactionWebService.getLatest()
+
+                    lastUpdated = latest.lastUpdated
+
+                    showNext = pageNumber < totals.totalPages - 1 
+                    showPrevious = pageNumber > 0
+
+                } catch(ex) { console.log(ex) }
+                
+                $('.hidden-on-load').removeClass('hidden-on-load')
+
+
+                loading = false
+
+                await $update()
+
+            }
+
+
+            $on('pageInit', async () => {
+
+                await loadLeaderboard()
+
+                $('.hide-on-pageinit').hide()
+
+
+                await $update()
+
+
+            })
+
+
+            document.querySelector('meta[property="og:title"]').setAttribute("content", "Leaderboard for BladeRunner Punks")
+            document.querySelector('meta[property="og:url"]').setAttribute("content", "/bladerunner-punks-reader/leaderboard")
+            document.querySelector('meta[property="og:image"]').setAttribute("content", "https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
+            document.querySelector('meta[property="og:description"]').setAttribute("content", "Leaderboard for BladeRunner Punks")
+
+            document.querySelector('meta[property="twitter:url"]').setAttribute("content", "/bladerunner-punks-reader/leaderboard")
+            document.querySelector('meta[property="twitter:title"]').setAttribute("content", "Leaderboard BladeRunner Punks")
+            document.querySelector('meta[property="twitter:image"]').setAttribute("content", "https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
+            document.querySelector('meta[property="twitter:description"]').setAttribute("content", "Leaderboard for BladeRunner Punks" )
+
+            document.querySelector('title').innerHTML = "Leaderboard BladeRunner Punks"
+
+            $f7.preloader.hide()
+
+            return $render
+
+        }
+
+
+    </script>
+
+    <script type="module" id="page-scripts">
+
+        let baseURL = '/bladerunner-punks-reader/'
+        let hostname = 'https://ptoner.gitlab.io'
+        let channelId = '7be060f4-5476-4378-b39a-e752f833f544'
+        let version = atob('IjAuNS4xNC1hbHBoYSI=').replace('"', '').replace('"', '')
+
+        let routablePages = JSON.parse(`[{"name":"Privacy","locations":["none"],"slug":"privacy"},{"name":"Terms of Service","locations":["none"],"slug":"terms"},{"name":"Disclaimer","locations":["none"],"slug":"disclaimer"}]`)
+
+        let app = reader.initReader(baseURL, hostname, version, routablePages, channelId )
+
+
+
+    </script>
+
+</body>
+
+</html>

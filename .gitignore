@@ -76,4 +76,3 @@ test/test-repo/*
 .env
 test/.env
 sync/*
-public/*
