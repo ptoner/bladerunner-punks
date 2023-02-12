@@ -21165,14 +21165,39 @@ class ProcessConfig {
         const args = arg__WEBPACK_IMPORTED_MODULE_1___default()({
             '--sync-dir': String,
             '--sync-rate': String,
-            '--alchemy': String
+            '--alchemy': String,
+            '--clear': String
         }, {
             argv: rawArgs.slice(2),
         });
         return {
             syncDir: args['--sync-dir'] || "",
             alchemy: args['--alchemy'] || "",
-            syncRate: args['--sync-rate'] ? parseInt(args['--sync-rate']) : 30 * 1000
+            syncRate: args['--sync-rate'] ? parseInt(args['--sync-rate']) : 30 * 1000,
+            clear: args['--clear'] == "true"
+        };
+    }
+    static getDeployConfig(config) {
+        let theArgs = ProcessConfig.parseDeployArgsIntoOptions(process.argv);
+        let baseDir = theArgs.dir ? theArgs.dir : process.env.INIT_CWD;
+        if (!baseDir)
+            baseDir = ".";
+        //A config object can be passed in. If not we will load large-config.json from the baseDir
+        if (!config) {
+            config = JSON.parse(fs__WEBPACK_IMPORTED_MODULE_0___default().readFileSync(`${baseDir}/large-config.json`, 'utf8'));
+        }
+        config.VERSION = _package_json__WEBPACK_IMPORTED_MODULE_2__.version;
+        config.baseDir = baseDir;
+        return config;
+    }
+    static parseDeployArgsIntoOptions(rawArgs) {
+        const args = arg__WEBPACK_IMPORTED_MODULE_1___default()({
+            '--dir': String
+        }, {
+            argv: rawArgs.slice(2),
+        });
+        return {
+            dir: args['--dir'] || "",
         };
     }
 }
@@ -21241,6 +21266,23 @@ let SpawnService = class SpawnService {
         });
         return generateAfterProcess;
     }
+    async spawnDeploy(dir, args) {
+        let theArgs = ["--"];
+        if (args) {
+            theArgs.push(...args);
+        }
+        else {
+            theArgs.push(...process.argv?.slice(2));
+        }
+        let deployProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run deploy`, theArgs, { shell: true, cwd: dir });
+        deployProcess.stdout.on('data', (data) => {
+            process.stdout.write(data.toString());
+        });
+        deployProcess.stderr.on('data', (data) => {
+            process.stderr.write(data.toString());
+        });
+        return deployProcess;
+    }
     async spawnSync(dir, args) {
         let theArgs = ["--"];
         if (args) {
@@ -21258,7 +21300,7 @@ let SpawnService = class SpawnService {
         });
         return syncProcess;
     }
-    async spawnAndSync(dir) {
+    async spawnGenerateAndSync(dir) {
         // Generate HTML
         let generateProcess = await this.spawnGenerate(dir);
         generateProcess.on('close', (code) => {
@@ -25369,7 +25411,7 @@ var esm_default = gitInstanceFactory;
   \**********************/
 /***/ ((module) => {
 
-module.exports = JSON.parse('{"name":"large-nft","version":"0.5.14-alpha","description":"A decentralized, offline-first content management system for NFT communities.","repository":{"type":"git","url":"git+https://github.com/LargeNFT/large-nft"},"scripts":{"start":"node node_modules/.bin/http-server -a localhost -p 8000 -c-1","start:dev":"node --loader ts-node/esm node_modules/webpack/bin/webpack.js serve --config=webpack.dev.ts ","test":"node --require esm node_modules/.bin/hardhat test","build":"node --loader ts-node/esm node_modules/webpack/bin/webpack.js --config=webpack.prod.ts","build:dev":"node --loader ts-node/esm node_modules/webpack/bin/webpack.js --config=webpack.dev.ts","sync-push":"node --no-experimental-fetch --loader ts-node/esm public/sync/sync-push.js","electron":"electron src/admin/electron.ts"},"keywords":[],"author":"Large Authors","license":"MIT","bugs":{"url":"https://github.com/LargeNFT/large-nft/issues"},"type":"module","types":"./dist/index.d.ts","homepage":"https://github.com/LargeNFT/large-nft#readme","sideEffects":["**/*.css"],"devDependencies":{"@nomiclabs/hardhat-etherscan":"3.1.3","@nomicfoundation/hardhat-toolbox":"2.0.0","@openzeppelin/contracts":"4.8.1","@types/node":"18.11.18","@types/pouchdb":"6.4.0","@types/reflect-metadata":"0.1.0","axios-mock-adapter":"1.21.2","clean-webpack-plugin":"4.0.0","copy-webpack-plugin":"10.2.4","core-js":"3.21.0","css-loader":"5.2.7","dotenv":"16.0.0","electron":"22.0.0","erc721a":"4.2.3","eth-gas-reporter":"0.2.24","file-loader":"6.2.0","framework7-loader":"3.0.2","html-inline-css-webpack-plugin":"1.11.1","html-inline-script-webpack-plugin":"2.0.3","html-loader":"4.1.0","html-webpack-plugin":"5.5.0","http-server":"14.1.0","ipfs":"0.66.0","jsdom":"19.0.0","mini-css-extract-plugin":"2.6.0","reflect-metadata":"0.1.13","regenerator-runtime":"0.13.7","style-loader":"3.3.1","terser-webpack-plugin":"5.3.1","truffle-assertions":"0.9.2","ts-loader":"9.2.7","ts-mocha":"10.0.0","ts-mockito":"2.6.1","ts-node":"10.9.1","typescript":"4.9.3","uint8arrays":"3.0.0","url-loader":"4.1.1","webpack":"5.75.0","webpack-cli":"5.0.0","webpack-dev-server":"4.11.1","webpack-merge":"5.8.0","webpack-node-externals":"3.0.0","esm":"3.2.25","eta":"1.12.3","convert-svg-to-png":"0.6.4","arg":"5.0.2","workbox-window":"6.5.4","he":"1.2.0","@isomorphic-git/cors-proxy":"2.7.1","fastify":"4.12.0","@fastify/static":"6.8.0"},"dependencies":{"@isomorphic-git/lightning-fs":"4.6.0","@pinata/ipfs-gateway-tools":"1.3.0","@svgdotjs/svg.js":"3.1.2","@xmldom/xmldom":"0.8.2","@yaireo/tagify":"4.9.8","assert":"2.0.0","axios":"1.2.0","blob-polyfill":"6.0.20211015","browser-image-resizer":"2.2.1","memfs":"3.4.10","browserify-zlib":"0.2.0","buffer":"6.0.3","class-validator":"0.13.2","crypto-browserify":"3.12.0","dgram-browserify":"0.0.13","ethers":"5.7.2","excerpt-html":"1.2.2","framework7":"7.1.2","framework7-icons":"5.0.5","highlight.js":"11.5.1","hotkeys-js":"3.9.0","html-truncate":"1.2.2","https-browserify":"1.0.0","inversify":"6.0.1","ipfs-core":"0.18.0","ipfs-http-client":"60.0.0","ipfs-only-hash":"4.0.0","is-svg":"4.3.2","isomorphic-git":"1.21.0","it-to-buffer":"3.0.0","juice":"8.0.0","level-js":"6.1.0","material-icons":"1.10.7","mini-svg-data-uri":"1.4.4","moment":"2.29.4","os-browserify":"0.3.0","parse-link-header":"2.0.0","path-browserify":"1.0.1","pdf-parse":"1.1.1","pouchdb-browser":"7.3.1","pouchdb-find":"7.3.1","pouchdb-quick-search":"1.3.0","pouchdb-collate":"7.3.1","sequelize":"6.28.0","sqlite3":"5.1.4","@types/validator":"13.7.10","sequelize-typescript":"2.1.5","process":"0.11.10","quill":"1.3.7","quill-blot-formatter":"1.0.5","quill-delta-to-html":"0.12.1","quill-delta-to-markdown":"0.6.0","quill-image-drop-and-paste":"1.2.14","quill-paste-smart":"1.4.10","reflect-metadata":"0.1.13","stream-browserify":"3.0.0","stream-http":"3.2.0","url":"0.11.0","util":"0.12.4","uuid":"8.3.2","node-fetch":"3.3.0","simple-git":"3.15.1"}}');
+module.exports = JSON.parse('{"name":"large-nft","version":"0.5.15-alpha","description":"A decentralized, offline-first content management system for NFT communities.","repository":{"type":"git","url":"git+https://github.com/LargeNFT/large-nft"},"scripts":{"start":"node node_modules/.bin/http-server -a localhost -p 8000 -c-1","start:dev":"node --loader ts-node/esm node_modules/webpack/bin/webpack.js serve --config=webpack.dev.ts ","test":"node --require esm node_modules/.bin/hardhat test","build":"node --loader ts-node/esm node_modules/webpack/bin/webpack.js --config=webpack.prod.ts","build:dev":"node --loader ts-node/esm node_modules/webpack/bin/webpack.js --config=webpack.dev.ts","sync-push":"node --no-experimental-fetch --loader ts-node/esm public/sync/sync-push.js","electron":"electron src/admin/electron.ts"},"keywords":[],"author":"Large Authors","license":"MIT","bugs":{"url":"https://github.com/LargeNFT/large-nft/issues"},"type":"module","types":"./dist/index.d.ts","homepage":"https://github.com/LargeNFT/large-nft#readme","sideEffects":["**/*.css"],"devDependencies":{"@nomiclabs/hardhat-etherscan":"3.1.3","@nomicfoundation/hardhat-toolbox":"2.0.0","@openzeppelin/contracts":"4.8.1","@types/node":"18.11.18","@types/pouchdb":"6.4.0","@types/reflect-metadata":"0.1.0","axios-mock-adapter":"1.21.2","clean-webpack-plugin":"4.0.0","copy-webpack-plugin":"10.2.4","core-js":"3.21.0","css-loader":"5.2.7","dotenv":"16.0.0","electron":"22.0.0","erc721a":"4.2.3","eth-gas-reporter":"0.2.24","file-loader":"6.2.0","framework7-loader":"3.0.2","html-inline-css-webpack-plugin":"1.11.1","html-inline-script-webpack-plugin":"2.0.3","html-loader":"4.1.0","html-webpack-plugin":"5.5.0","http-server":"14.1.0","ipfs":"0.66.0","jsdom":"19.0.0","mini-css-extract-plugin":"2.6.0","reflect-metadata":"0.1.13","regenerator-runtime":"0.13.7","style-loader":"3.3.1","terser-webpack-plugin":"5.3.1","truffle-assertions":"0.9.2","ts-loader":"9.2.7","ts-mocha":"10.0.0","ts-mockito":"2.6.1","ts-node":"10.9.1","typescript":"4.9.3","uint8arrays":"3.0.0","url-loader":"4.1.1","webpack":"5.75.0","webpack-cli":"5.0.0","webpack-dev-server":"4.11.1","webpack-merge":"5.8.0","webpack-node-externals":"3.0.0","esm":"3.2.25","eta":"1.12.3","convert-svg-to-png":"0.6.4","arg":"5.0.2","workbox-window":"6.5.4","he":"1.2.0","@isomorphic-git/cors-proxy":"2.7.1","fastify":"4.12.0","@fastify/static":"6.8.0"},"dependencies":{"@isomorphic-git/lightning-fs":"4.6.0","@pinata/ipfs-gateway-tools":"1.3.0","@svgdotjs/svg.js":"3.1.2","@xmldom/xmldom":"0.8.2","@yaireo/tagify":"4.9.8","assert":"2.0.0","axios":"1.2.0","blob-polyfill":"6.0.20211015","browser-image-resizer":"2.2.1","memfs":"3.4.10","browserify-zlib":"0.2.0","buffer":"6.0.3","class-validator":"0.13.2","crypto-browserify":"3.12.0","dgram-browserify":"0.0.13","ethers":"5.7.2","excerpt-html":"1.2.2","framework7":"7.1.2","framework7-icons":"5.0.5","highlight.js":"11.5.1","hotkeys-js":"3.9.0","html-truncate":"1.2.2","https-browserify":"1.0.0","inversify":"6.0.1","ipfs-core":"0.18.0","ipfs-http-client":"60.0.0","ipfs-only-hash":"4.0.0","is-svg":"4.3.2","isomorphic-git":"1.21.0","it-to-buffer":"3.0.0","juice":"8.0.0","level-js":"6.1.0","material-icons":"1.10.7","mini-svg-data-uri":"1.4.4","moment":"2.29.4","os-browserify":"0.3.0","parse-link-header":"2.0.0","path-browserify":"1.0.1","pdf-parse":"1.1.1","pouchdb-browser":"7.3.1","pouchdb-find":"7.3.1","pouchdb-quick-search":"1.3.0","pouchdb-collate":"7.3.1","sequelize":"6.28.0","sqlite3":"5.1.4","@types/validator":"13.7.10","sequelize-typescript":"2.1.5","process":"0.11.10","quill":"1.3.7","quill-blot-formatter":"1.0.5","quill-delta-to-html":"0.12.1","quill-delta-to-markdown":"0.6.0","quill-image-drop-and-paste":"1.2.14","quill-paste-smart":"1.4.10","reflect-metadata":"0.1.13","stream-browserify":"3.0.0","stream-http":"3.2.0","url":"0.11.0","util":"0.12.4","uuid":"8.3.2","node-fetch":"3.3.0","simple-git":"3.15.1"}}');
 
 /***/ }),
 
@@ -25491,6 +25533,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Starts a process that monitors the configured git repo(s) to generate, sync, and push the results to git.
+ * Then it calls the "deploy" script that allows the public folder to be distributed to a static web host.
+ * The sync tasks stay running to monitor Ethereum for changes.
+ */
 let syncPush = async () => {
     let config = await _reader_util_process_config_js__WEBPACK_IMPORTED_MODULE_5__.ProcessConfig.getSyncPushConfig();
     if (!config) {
@@ -25503,7 +25550,7 @@ let syncPush = async () => {
     console.log('Starting Sync/Push...');
     for (let repo of config.repos) {
         const syncDirectory = path__WEBPACK_IMPORTED_MODULE_3___default().resolve(config.baseDir, repo);
-        await spawnService.spawnAndSync(syncDirectory);
+        await spawnService.spawnGenerateAndSync(syncDirectory);
     }
     async function runLoop() {
         console.log('Starting push loop');
@@ -25519,6 +25566,7 @@ let syncPush = async () => {
                     await git.add('./');
                     await git.commit('Committing changes');
                     await git.push('origin', branch);
+                    await spawnService.spawnDeploy(syncDirectory);
                 }
                 else {
                     console.log(`No changes in ${syncDirectory}`);

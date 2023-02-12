@@ -278,7 +278,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '945455293a';
+framework7Component.id = '30c9c48fd7';
 framework7Component.style = `
 
 .item-content.attribute-select {
@@ -348,7 +348,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '75f8c61891';
+framework7Component.id = 'c46b279709';
 framework7Component.style = `
 
 
@@ -440,7 +440,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '5a2803425c';
+framework7Component.id = '9faa10f414';
 framework7Component.style = `
 `;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (framework7Component);
@@ -690,7 +690,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = 'adbec6fbba';
+framework7Component.id = '5ff6140164';
 framework7Component.style = `
 
 `;
@@ -765,7 +765,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '08a0006039';
+framework7Component.id = 'a1890ac843';
 framework7Component.style = `
 `;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (framework7Component);
@@ -1026,7 +1026,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '9589b8fd63';
+framework7Component.id = '0b2cc043f8';
 framework7Component.style = `
 
 .mint-list-card .card-header {
@@ -1204,7 +1204,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '0226fdd714';
+framework7Component.id = '1375a136fd';
 framework7Component.style = `
 
 .block-search {
@@ -1467,7 +1467,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '390fc3f5ad';
+framework7Component.id = '4cca8ac632';
 framework7Component.style = `
 
   .logo {
@@ -1607,7 +1607,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '85c0bdcee4';
+framework7Component.id = 'f50b9ce427';
 framework7Component.style = `
 .page-number {
     width: 100%;
@@ -1677,7 +1677,7 @@ function framework7Component(props, {
     }
     ;
 }
-framework7Component.id = '3a87ec5bd9';
+framework7Component.id = 'a6ee5f5518';
 framework7Component.style = `
 
 
