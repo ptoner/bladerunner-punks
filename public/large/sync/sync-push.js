@@ -21313,15 +21313,26 @@ let SpawnService = class SpawnService {
             return this.spawnSync(dir);
         });
     }
-    async spawnGoogleCloudSync(dir, bucketName, destinationDir, args) {
-        let deployProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gsutil -m rsync $* -r ${dir}/public gs://${bucketName}/${destinationDir}`, [], { shell: true, cwd: dir });
-        deployProcess.stdout.on('data', (data) => {
+    async spawnGoogleCloudSync(dir, bucketName, destinationDir, authJson, args) {
+        let rsyncProcess;
+        let authProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gcloud auth activate-service-account`, ['--key-file', authJson], { shell: true, cwd: dir });
+        authProcess.stdout.on('data', (data) => {
             process.stdout.write(data.toString());
         });
-        deployProcess.stderr.on('data', (data) => {
+        authProcess.stderr.on('data', (data) => {
             process.stderr.write(data.toString());
         });
-        return deployProcess;
+        authProcess.on('close', (code) => {
+            console.log(`Generate process exited with code ${code}`);
+            let rsyncProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gsutil -m rsync $* -r ${dir}/public gs://${bucketName}/${destinationDir}`, [], { shell: true, cwd: dir });
+            rsyncProcess.stdout.on('data', (data) => {
+                process.stdout.write(data.toString());
+            });
+            rsyncProcess.stderr.on('data', (data) => {
+                process.stderr.write(data.toString());
+            });
+        });
+        return rsyncProcess;
     }
 };
 SpawnService = __decorate([
