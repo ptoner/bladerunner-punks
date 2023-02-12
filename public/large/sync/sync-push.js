@@ -21237,100 +21237,113 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 let SpawnService = class SpawnService {
     constructor() { }
     async spawnGenerate(dir, args) {
-        let theArgs = ["--"];
-        if (args) {
-            theArgs.push(...args);
-        }
-        else {
-            theArgs.push(...process.argv?.slice(2));
-        }
-        let generateProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run generate`, theArgs, { shell: true, cwd: dir });
-        generateProcess.stdout.on('data', (data) => {
-            process.stdout.write(data.toString());
+        return new Promise(function (resolve, reject) {
+            let theArgs = ["--"];
+            if (args) {
+                theArgs.push(...args);
+            }
+            else {
+                theArgs.push(...process.argv?.slice(2));
+            }
+            let generateProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run generate`, theArgs, { shell: true, cwd: dir });
+            generateProcess.stdout.on('data', (data) => {
+                process.stdout.write(data.toString());
+            });
+            generateProcess.stderr.on('data', (data) => {
+                process.stderr.write(data.toString());
+            });
+            generateProcess.on('close', (code) => {
+                console.log(`Generate process exited with code ${code}`);
+                resolve(generateProcess);
+            });
         });
-        generateProcess.stderr.on('data', (data) => {
-            process.stderr.write(data.toString());
-        });
-        return generateProcess;
     }
     async spawnGenerateAfter(dir, args) {
-        let theArgs = ["--"];
-        if (args) {
-            theArgs.push(...args);
-        }
-        else {
-            theArgs.push(...process.argv?.slice(2));
-        }
-        let generateAfterProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run generate:after`, theArgs, { shell: true, cwd: dir });
-        generateAfterProcess.stdout.on('data', (data) => {
-            process.stdout.write(data.toString());
+        return new Promise(function (resolve, reject) {
+            let theArgs = ["--"];
+            if (args) {
+                theArgs.push(...args);
+            }
+            else {
+                theArgs.push(...process.argv?.slice(2));
+            }
+            let generateAfterProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run generate:after`, theArgs, { shell: true, cwd: dir });
+            generateAfterProcess.stdout.on('data', (data) => {
+                process.stdout.write(data.toString());
+            });
+            generateAfterProcess.stderr.on('data', (data) => {
+                process.stderr.write(data.toString());
+            });
+            generateAfterProcess.on('close', (code) => {
+                console.log(`Generate:after process exited with code ${code}`);
+                resolve(generateAfterProcess);
+            });
         });
-        generateAfterProcess.stderr.on('data', (data) => {
-            process.stderr.write(data.toString());
-        });
-        return generateAfterProcess;
     }
     async spawnDeploy(dir, args) {
-        let theArgs = ["--"];
-        if (args) {
-            theArgs.push(...args);
-        }
-        else {
-            theArgs.push(...process.argv?.slice(2));
-        }
-        let deployProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run deploy`, theArgs, { shell: true, cwd: dir });
-        deployProcess.stdout.on('data', (data) => {
-            process.stdout.write(data.toString());
+        return new Promise(function (resolve, reject) {
+            let theArgs = ["--"];
+            if (args) {
+                theArgs.push(...args);
+            }
+            else {
+                theArgs.push(...process.argv?.slice(2));
+            }
+            let deployProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run deploy`, theArgs, { shell: true, cwd: dir });
+            deployProcess.stdout.on('data', (data) => {
+                process.stdout.write(data.toString());
+            });
+            deployProcess.stderr.on('data', (data) => {
+                process.stderr.write(data.toString());
+            });
+            deployProcess.on('close', (code) => {
+                console.log(`Deploy process exited with code ${code}`);
+                resolve(deployProcess);
+            });
+            return deployProcess;
         });
-        deployProcess.stderr.on('data', (data) => {
-            process.stderr.write(data.toString());
-        });
-        return deployProcess;
     }
     async spawnSync(dir, args) {
-        let theArgs = ["--"];
-        if (args) {
-            theArgs.push(...args);
-        }
-        else {
-            theArgs.push(...process.argv?.slice(2));
-        }
-        let syncProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run sync`, theArgs, { shell: true, cwd: dir });
-        syncProcess.stdout.on('data', (data) => {
-            process.stdout.write(data.toString());
+        return new Promise(function (resolve, reject) {
+            let theArgs = ["--"];
+            if (args) {
+                theArgs.push(...args);
+            }
+            else {
+                theArgs.push(...process.argv?.slice(2));
+            }
+            let syncProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`npm run sync`, theArgs, { shell: true, cwd: dir });
+            syncProcess.stdout.on('data', (data) => {
+                process.stdout.write(data.toString());
+            });
+            syncProcess.stderr.on('data', (data) => {
+                process.stderr.write(data.toString());
+            });
+            syncProcess.on('close', (code) => {
+                console.log(`Sync process exited with code ${code}`);
+                resolve(syncProcess);
+            });
         });
-        syncProcess.stderr.on('data', (data) => {
-            process.stderr.write(data.toString());
-        });
-        return syncProcess;
     }
-    async spawnGenerateAndSync(dir) {
+    async spawnGenerateAndSync(dir, args) {
         // Generate HTML
-        let generateProcess = await this.spawnGenerate(dir);
-        generateProcess.on('close', (code) => {
-            console.log(`Generate process exited with code ${code}`);
-            //Start sync
-            return this.spawnSync(dir);
-        });
+        await this.spawnGenerate(dir, args);
+        return this.spawnSync(dir, args);
     }
-    runningCloudSyncs = {};
     async spawnGoogleCloudSync(dir, bucketName, destinationDir, args) {
-        if (this.runningCloudSyncs[dir]) {
-            console.log(`Google cloud sync for ${dir} already running. Skipping.`);
-            return;
-        }
-        this.runningCloudSyncs[dir] = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gsutil -m rsync $* -r ${dir}/public gs://${bucketName}/${destinationDir}`, [], { shell: true, cwd: dir });
-        this.runningCloudSyncs[dir].stdout.on('data', (data) => {
-            process.stdout.write(data.toString());
+        return new Promise(function (resolve, reject) {
+            let rsyncProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gsutil -m rsync $* -r ${dir}/public gs://${bucketName}/${destinationDir}`, [], { shell: true, cwd: dir });
+            rsyncProcess.stdout.on('data', (data) => {
+                process.stdout.write(data.toString());
+            });
+            rsyncProcess.stderr.on('data', (data) => {
+                process.stderr.write(data.toString());
+            });
+            rsyncProcess.on('close', (code) => {
+                console.log(`Google rsync process exited with code ${code}`);
+                resolve(rsyncProcess);
+            });
         });
-        this.runningCloudSyncs[dir].stderr.on('data', (data) => {
-            process.stderr.write(data.toString());
-        });
-        this.runningCloudSyncs[dir].on('close', (code) => {
-            console.log(`Generate process exited with code ${code}`);
-            delete this.runningCloudSyncs[dir];
-        });
-        return this.runningCloudSyncs[dir];
     }
 };
 SpawnService = __decorate([
@@ -25573,12 +25586,15 @@ let syncPush = async () => {
     console.log('Starting Sync/Push...');
     for (let repo of config.repos) {
         const syncDirectory = path__WEBPACK_IMPORTED_MODULE_3___default().resolve(config.baseDir, repo);
-        await spawnService.spawnGenerateAndSync(syncDirectory);
+        await spawnService.spawnGenerate(syncDirectory);
     }
     async function runLoop() {
-        console.log('Starting push loop');
+        console.log('Starting sync/push/deploy loop');
         for (let repo of config.repos) {
             const syncDirectory = path__WEBPACK_IMPORTED_MODULE_3___default().resolve(config.baseDir, repo);
+            //Sync
+            await spawnService.spawnSync(syncDirectory);
+            //Push
             const git = (0,simple_git__WEBPACK_IMPORTED_MODULE_4__.simpleGit)(syncDirectory);
             try {
                 let status = await git.status();
@@ -25589,6 +25605,7 @@ let syncPush = async () => {
                     await git.add('./');
                     await git.commit('Committing changes');
                     await git.push('origin', branch);
+                    //Deploy
                     await spawnService.spawnDeploy(syncDirectory);
                 }
                 else {
