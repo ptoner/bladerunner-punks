@@ -20430,15 +20430,24 @@ let SpawnService = class SpawnService {
             return this.spawnSync(dir);
         });
     }
+    runningCloudSyncs = {};
     async spawnGoogleCloudSync(dir, bucketName, destinationDir, args) {
-        let rsyncProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gsutil -m rsync $* -r ${dir}/public gs://${bucketName}/${destinationDir}`, [], { shell: true, cwd: dir });
-        rsyncProcess.stdout.on('data', (data) => {
+        if (this.runningCloudSyncs[dir]) {
+            console.log(`Google cloud sync for ${dir} already running. Skipping.`);
+            return;
+        }
+        this.runningCloudSyncs[dir] = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gsutil -m rsync $* -r ${dir}/public gs://${bucketName}/${destinationDir}`, [], { shell: true, cwd: dir });
+        this.runningCloudSyncs[dir].stdout.on('data', (data) => {
             process.stdout.write(data.toString());
         });
-        rsyncProcess.stderr.on('data', (data) => {
+        this.runningCloudSyncs[dir].stderr.on('data', (data) => {
             process.stderr.write(data.toString());
         });
-        return rsyncProcess;
+        this.runningCloudSyncs[dir].on('close', (code) => {
+            console.log(`Generate process exited with code ${code}`);
+            delete this.runningCloudSyncs[dir];
+        });
+        return this.runningCloudSyncs[dir];
     }
 };
 SpawnService = __decorate([
