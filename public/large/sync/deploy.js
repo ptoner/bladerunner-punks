@@ -20309,7 +20309,11 @@ class ProcessConfig {
     }
     static parseDeployArgsIntoOptions(rawArgs) {
         const args = arg__WEBPACK_IMPORTED_MODULE_1___default()({
-            '--dir': String
+            '--dir': String,
+            '--sync-dir': String,
+            '--sync-rate': String,
+            '--alchemy': String,
+            '--clear': String
         }, {
             argv: rawArgs.slice(2),
         });
@@ -20584,7 +20588,7 @@ __webpack_require__.r(__webpack_exports__);
  * Called after detecting a change in the git repo. Push ./public to wherever it needs to go.
  */
 let deploy = async () => {
-    let config = await _reader_util_process_config_js__WEBPACK_IMPORTED_MODULE_3__.ProcessConfig.getSyncPushConfig();
+    let config = await _reader_util_process_config_js__WEBPACK_IMPORTED_MODULE_3__.ProcessConfig.getDeployConfig();
     if (!config) {
         throw new Error("No configuration found.");
     }

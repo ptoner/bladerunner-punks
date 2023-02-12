@@ -21192,7 +21192,11 @@ class ProcessConfig {
     }
     static parseDeployArgsIntoOptions(rawArgs) {
         const args = arg__WEBPACK_IMPORTED_MODULE_1___default()({
-            '--dir': String
+            '--dir': String,
+            '--sync-dir': String,
+            '--sync-rate': String,
+            '--alchemy': String,
+            '--clear': String
         }, {
             argv: rawArgs.slice(2),
         });
