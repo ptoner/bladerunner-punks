@@ -30,7 +30,8 @@
     "deploy": {
         "googleCloud": {
             "bucketName": "large-reader",
-            "destinationDir": "bladerunner-punks"
+            "destinationDir": "bladerunner-punks",
+            "authJson": "secret/large.json"
         }
     }
 

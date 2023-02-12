@@ -20430,6 +20430,16 @@ let SpawnService = class SpawnService {
             return this.spawnSync(dir);
         });
     }
+    async spawnGoogleCloudSync(dir, bucketName, destinationDir, args) {
+        let deployProcess = (0,child_process__WEBPACK_IMPORTED_MODULE_0__.spawn)(`gsutil -m rsync $* -r ${dir}/public gs://${bucketName}/${destinationDir}`, [], { shell: true, cwd: dir });
+        deployProcess.stdout.on('data', (data) => {
+            process.stdout.write(data.toString());
+        });
+        deployProcess.stderr.on('data', (data) => {
+            process.stderr.write(data.toString());
+        });
+        return deployProcess;
+    }
 };
 SpawnService = __decorate([
     (0,inversify__WEBPACK_IMPORTED_MODULE_1__.injectable)(),
@@ -20594,8 +20604,9 @@ let deploy = async () => {
     }
     let spawnService = new _service_spawn_service_js__WEBPACK_IMPORTED_MODULE_4__.SpawnService();
     console.log('Starting Deploy...');
-    //Currently this is getting tied to Google Cloud but in the future this will allow 
-    console.log("HERE", config.baseDir);
+    console.log(config);
+    //Currently this is getting tied to Google Cloud but in the future this will allow any service to be configured. 
+    // await spawnService.spawnGoogleCloudSync(config.baseDir, )
 };
 deploy();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (deploy);
