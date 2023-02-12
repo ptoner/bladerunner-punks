@@ -25,5 +25,13 @@
     ],
 
     "footer": "src/footer.ejs",
-    "additionalStaticPages": "src/additionalStaticPages.json"
+    "additionalStaticPages": "src/additionalStaticPages.json",
+
+    "deploy": {
+        "googleCloud": {
+            "bucketName": "large-reader",
+            "destinationDir": "bladerunner-punks"
+        }
+    }
+
 }
