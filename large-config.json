@@ -1,6 +1,12 @@
 {
-    "hostname": "https://ptoner.gitlab.io",
-    "baseURL": "/bladerunner-punks-reader/",
+    "env": {
+        "dev": {
+            "hostname": "http://localhost"
+        }
+    },
+
+    "hostname": "https://golarge.app",
+    "baseURL": "/r/bladerunner-punks/",
 
     "showMintPage": false,
     "showActivityPage": true,
@@ -24,14 +30,13 @@
         }
     ],
 
-    "footer": "src/footer.ejs",
-    "additionalStaticPages": "src/additionalStaticPages.json",
+    "footer": "../../largenft-org/src/shared/footer.ejs",
+    "adminFooter": "../../largenft-org/src/shared/adminFooter.ejs",
+    "logo": {
+        "src": "../../largenft-org/src/shared/large.svg",
+        "link": "https://golarge.app"
+    },
+    "largeURL": "https://golarge.app/admin"
 
-    "deploy": {
-        "googleCloud": {
-            "bucketName": "large-reader",
-            "destinationDir": "bladerunner-punks"
-        }
-    }
 
 }

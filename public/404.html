@@ -34,7 +34,8 @@
         <div class="page" data-name="home">
 
           <nav-bar
-            logo="/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg"
+            logo="${logo}"
+            large_url="https://golarge.app/admin"
             title="BladeRunner Punks"
             show_mint_page="false"
             show_activity_page="true"
@@ -91,6 +92,9 @@
 
       const init = (props, { $, $f7, $h, $on, $update }) => {
               
+            let logo = JSON.parse(`{"src":"../../largenft-org/src/shared/large.svg","link":"https://golarge.app"}`)
+
+
             $on('pageInit', async () => {
             })
 
@@ -102,19 +106,20 @@
 
     </script>
 
-    <script type="module" id="page-scripts">
+  
 
-      let baseURL = '/bladerunner-punks-reader/'
-      let hostname = 'https://ptoner.gitlab.io'
-      let channelId = '7be060f4-5476-4378-b39a-e752f833f544'
-      let version = atob('IjAuNS4xNi1hbHBoYSI=').replace('"', '').replace('"', '')
+<script type="module" id="page-scripts">
 
-      let routablePages = JSON.parse(`[{"name":"Privacy","locations":["none"],"slug":"privacy"},{"name":"Terms of Service","locations":["none"],"slug":"terms"},{"name":"Disclaimer","locations":["none"],"slug":"disclaimer"}]`)
+    let baseURL = '/r/bladerunner-punks/'
+    let hostname = 'https://golarge.app'
+    let channelId = '7be060f4-5476-4378-b39a-e752f833f544'
+    let version = atob('IjAuOC40Ig==').replace('"', '').replace('"', '')
 
-      let app = reader.initReader(baseURL, hostname, version, routablePages, channelId )
+    let routablePages = JSON.parse(`[]`)
 
-    </script>
+    let app = reader.initReader(baseURL, hostname, version, routablePages, channelId)
 
+</script>
   </body>
 
 </html>

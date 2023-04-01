@@ -14,31 +14,32 @@
     }
     </style>
 
-    <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, user-scalable=yes, minimal-ui, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar -->
+
     <title>
         Largest Sales for BladeRunner Punks    </title>
 
-    <meta property="og:title" content="Largest Sales for BladeRunner Punks" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="/bladerunner-punks-reader/largest-sales" />
-    <meta property="og:image" content="https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
-    <meta property="og:description" content="Largest Sales for BladeRunner Punks" />
+    
 
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="/bladerunner-punks-reader/largest-sales" />
-    <meta property="twitter:title" content="Largest Sales for BladeRunner Punks" />
-    <meta property="twitter:description" content="Largest Sales for BladeRunner Punks" />
-    <meta property="twitter:image" content="https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, user-scalable=yes, minimal-ui, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta property="og:title" content="Largest Sales for 'BladeRunner Punks' NFTs" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="largest-sales" />
+<meta property="og:image" content="https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
+<meta property="og:description" content="Largest Sales for 'BladeRunner Punks' NFTs" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="largest-sales" />
+<meta property="twitter:title" content="Largest Sales for 'BladeRunner Punks' NFTs" />
+<meta property="twitter:description" content="Largest Sales for 'BladeRunner Punks' NFTs" />
+<meta property="twitter:image" content="https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
 
     
-        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/runtime.reader.js"></script>
-        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/vendors.reader.js"></script>
-        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/main.reader.js"></script>
+  <script defer src="/r/bladerunner-punks/large/reader/browser/js/runtime-0.8.4.reader.js"></script>
+  <script defer src="/r/bladerunner-punks/large/reader/browser/js/vendors-0.8.4.reader.js"></script>
+  <script defer src="/r/bladerunner-punks/large/reader/browser/js/main-0.8.4.reader.js"></script>
         
 </head>
 
@@ -51,7 +52,8 @@
             <div class="page" data-name="largest-sales">
 
                 <nav-bar
-                    logo="/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg"
+                    logo="${logo}"
+                    large_url="https://golarge.app/admin"
                     title="Largest Sales"
                     active="Largest Sales"
                     show_mint_page="false"
@@ -71,13 +73,13 @@
                                 <div class="block block-strong inset col-100 no-margin-bottom">
                                     <div class="breadcrumbs ">
                                       <div class="breadcrumbs-item">
-                                        <a href="/bladerunner-punks-reader/index.html" class="link">
+                                        <a href="/r/bladerunner-punks/index.html" class="link">
                                           Home
                                         </a>
                                       </div>       
                                       <div class="breadcrumbs-separator"></div>
                                       <div class="breadcrumbs-item breadcrumbs-item-active">
-                                        <a href="/bladerunner-punks-reader/leaderboard" class="link">
+                                        <a href="/r/bladerunner-punks/leaderboard" class="link">
                                             Largest Sales
                                         </a>
                                         
@@ -86,26 +88,26 @@
                                 </div>
                             
 
-                                ${largestSales?.length > 0 ? $h`
+                                ${largestSales?.sales?.length > 0 ? $h`
                                     <div class="block-title block-title-medium">Largest Sales</div>
                                     <div class="block block-strong inset largest-sales">
                                       
                                       <div class="row">
-                                        ${largestSales?.map( (sale, index) => $h`
+                                        ${largestSales?.sales?.map( (sale, index) => $h`
                                           <div class="col-50 large-20 margin-bottom">
                   
                                             <div class="rank">#${index+1}</div>
                   
                                             <div class="square">
-                                              <a href="${link(`t/${sale.item.tokenId}`)}" class="item-link">
-                                                <img src="${link(`backup/export/images/${sale.item.coverImageId}.${sale.item.coverImageGenerated ? 'svg' : 'jpg'}`)}" alt="${sale.item.tokenId}" height="125" width="125"/>
+                                              <a href="${link(`t/${sale.tokenId}`)}" class="item-link">
+                                                <img src="${link(`backup/export/images/${largestSales.rowItemViewModels[sale.tokenId].coverImageId}.${largestSales.rowItemViewModels[sale.tokenId].coverImageGenerated ? 'svg' : 'jpg'}`)}" alt="${sale.tokenId}" height="125" width="125"/>
                                               </a>
                                             </div>
                   
                                             <div class="sale-info margin-top">
-                                              <a href="${link(`t/${sale.item.tokenId}`)}" class="item-link">${sale.item.title}</a><br />
-                                              ${new Intl.NumberFormat('en-US').format(sale.sale.ethValue)} ETH (${transactionWebService.abbreviateDollars(sale.sale.usdValue, 2)})
-                                              <div class="date">${moment(sale.sale.date).format('LL')}</div>
+                                              <a href="${link(`t/${sale.tokenId}`)}" class="item-link">${largestSales.rowItemViewModels[sale.tokenId].title}</a><br />
+                                              ${new Intl.NumberFormat('en-US').format(sale.ethValue)} ETH (${transactionWebService.abbreviateDollars(sale.usdValue, 2)})
+                                              <div class="date">${moment(sale.date).format('LL')}</div>
                   
                   
                                             </div>
@@ -137,42 +139,23 @@
                             
 <div class="block block-strong inset">
 
-    <span class="footer-link">
-      <a href="https://largenft.org">Large NFT</a> code licensed under <a href="https://github.com/LargeNFT/large-nft/blob/master/LICENSE.md" class="external">MIT</a>
-    </span>
+    <a href="https://golarge.app" class="external">Large NFT</a> code licensed under <a href="https://github.com/LargeNFT/large-nft/blob/master/LICENSE.md" class="external">MIT</a>
 
-    |
-
-    <span class="footer-link">
-      <a href="https://github.com/LargeNFT/large-nft" class="external">GitHub</a>
-    </span>
-
-    |
-
-    <span class="footer-link">
-      <a href="https://twitter.com/large_nft" class="external">Twitter</a>
-    </span>
-    
     <br /><br />
 
-
-    <span class='footer-link'><a href='/bladerunner-punks-reader/privacy.html'>Privacy Policy</a></span> |
-    <span class='footer-link'><a href='/bladerunner-punks-reader/terms.html'>Terms</a></span> | 
-    <span class='footer-link'><a href='/bladerunner-punks-reader/disclaimer.html'>Disclaimer</a></span>
+    <span class='footer-link'><a href='https://golarge.app/privacy' class="external">Privacy Policy</a></span>
+    <span class='footer-link'><a href='https://golarge.app/terms' class="external">Terms</a></span>
+    <span class='footer-link'><a href='https://golarge.app/acceptable-use' class="external">Acceptable Use</a></span>
+    <span class='footer-link'><a href='https://golarge.app/disclaimer' class="external">Disclaimer</a></span>
 </div>
 
+<style>
+.footer-link {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+</style>
 
-
-
-
-
-  <style>
-  .footer-link  {
-      margin-right: 5px;
-      margin-left: 5px;
-      display: inline-block;
-  }
-  </style>
                         </div>
                     </div>
             
@@ -195,8 +178,9 @@
             let walletService = globalThis.container.get("WalletService")
             let moment = globalThis.moment 
 
+            let logo = JSON.parse(`{"src":"../../largenft-org/src/shared/large.svg","link":"https://golarge.app"}`)
 
-            let baseURL = '/bladerunner-punks-reader/'
+            let baseURL = '/r/bladerunner-punks/'
 
             let largestSales
 
@@ -241,16 +225,17 @@
 
             })
 
+            
 
-            document.querySelector('meta[property="og:title"]').setAttribute("content", "Largest Sales for BladeRunner Punks")
-            document.querySelector('meta[property="og:url"]').setAttribute("content", "/bladerunner-punks-reader/largest-sales")
-            document.querySelector('meta[property="og:image"]').setAttribute("content", "https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
-            document.querySelector('meta[property="og:description"]').setAttribute("content", "Largest Sales for BladeRunner Punks")
+document.querySelector('meta[property="og:title"]').setAttribute("content", "Largest Sales for 'BladeRunner Punks' NFTs")
+document.querySelector('meta[property="og:url"]').setAttribute("content", "largest-sales")
+document.querySelector('meta[property="og:image"]').setAttribute("content", "https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
+document.querySelector('meta[property="og:description"]').setAttribute("content", "Largest Sales for 'BladeRunner Punks' NFTs")
 
-            document.querySelector('meta[property="twitter:url"]').setAttribute("content", "/bladerunner-punks-reader/largest-sales")
-            document.querySelector('meta[property="twitter:title"]').setAttribute("content", "Largest Sales BladeRunner Punks")
-            document.querySelector('meta[property="twitter:image"]').setAttribute("content", "https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
-            document.querySelector('meta[property="twitter:description"]').setAttribute("content", "Largest Sales for BladeRunner Punks" )
+document.querySelector('meta[property="twitter:url"]').setAttribute("content", "largest-sales")
+document.querySelector('meta[property="twitter:title"]').setAttribute("content", "Largest Sales for 'BladeRunner Punks' NFTs")
+document.querySelector('meta[property="twitter:image"]').setAttribute("content", "https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
+document.querySelector('meta[property="twitter:description"]').setAttribute("content", "Largest Sales for 'BladeRunner Punks' NFTs" )
 
             document.querySelector('title').innerHTML = "Largest Sales BladeRunner Punks"
 
@@ -263,21 +248,20 @@
 
     </script>
 
-    <script type="module" id="page-scripts">
+    
 
-        let baseURL = '/bladerunner-punks-reader/'
-        let hostname = 'https://ptoner.gitlab.io'
-        let channelId = '7be060f4-5476-4378-b39a-e752f833f544'
-        let version = atob('IjAuNS4xNi1hbHBoYSI=').replace('"', '').replace('"', '')
+<script type="module" id="page-scripts">
 
-        let routablePages = JSON.parse(`[{"name":"Privacy","locations":["none"],"slug":"privacy"},{"name":"Terms of Service","locations":["none"],"slug":"terms"},{"name":"Disclaimer","locations":["none"],"slug":"disclaimer"}]`)
+    let baseURL = '/r/bladerunner-punks/'
+    let hostname = 'https://golarge.app'
+    let channelId = '7be060f4-5476-4378-b39a-e752f833f544'
+    let version = atob('IjAuOC40Ig==').replace('"', '').replace('"', '')
 
-        let app = reader.initReader(baseURL, hostname, version, routablePages, channelId )
+    let routablePages = JSON.parse(`[]`)
 
+    let app = reader.initReader(baseURL, hostname, version, routablePages, channelId)
 
-
-    </script>
-
+</script>
 </body>
 
 </html>

@@ -14,31 +14,44 @@
     }
     </style>
 
-    <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, user-scalable=yes, minimal-ui, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar -->
+
     <title>
         Transaction for BladeRunner Punks    </title>
 
+
+    
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, user-scalable=yes, minimal-ui, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta property="og:title" content="Transaction for BladeRunner Punks" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="transaction" />
+<meta property="og:image" content="https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
+<meta property="og:description" content="Transaction for BladeRunner Punks" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="transaction" />
+<meta property="twitter:title" content="Transaction for BladeRunner Punks" />
+<meta property="twitter:description" content="Transaction for BladeRunner Punks" />
+<meta property="twitter:image" content="https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
     <meta property="og:title" content="Transaction for BladeRunner Punks" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="/bladerunner-punks-reader/transaction" />
-    <meta property="og:image" content="https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
+    <meta property="og:url" content="/r/bladerunner-punks/transaction" />
+    <meta property="og:image" content="https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
     <meta property="og:description" content="Transaction for BladeRunner Punks" />
 
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="/bladerunner-punks-reader/transaction" />
+    <meta property="twitter:url" content="/r/bladerunner-punks/transaction" />
     <meta property="twitter:title" content="Transaction for BladeRunner Punks" />
     <meta property="twitter:description" content="Transaction for BladeRunner Punks" />
-    <meta property="twitter:image" content="https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
+    <meta property="twitter:image" content="https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg" />
 
     
-        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/runtime.reader.js"></script>
-        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/vendors.reader.js"></script>
-        <script defer src="/bladerunner-punks-reader/large/reader/browser/js/main.reader.js"></script>
+  <script defer src="/r/bladerunner-punks/large/reader/browser/js/runtime-0.8.4.reader.js"></script>
+  <script defer src="/r/bladerunner-punks/large/reader/browser/js/vendors-0.8.4.reader.js"></script>
+  <script defer src="/r/bladerunner-punks/large/reader/browser/js/main-0.8.4.reader.js"></script>
         
 </head>
 
@@ -51,7 +64,8 @@
             <div class="page" data-name="transaction">
 
                 <nav-bar
-                    logo="/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg"
+                    logo="${logo}"
+                    large_url="https://golarge.app/admin"
                     title="Transaction"
                     active="Transaction"
                     show_mint_page="false"
@@ -83,9 +97,12 @@
 
         const init = (props, { $, $f7, $h, $on, $update }) => {
 
+            let logo = JSON.parse(`{"src":"../../largenft-org/src/shared/large.svg","link":"https://golarge.app"}`)
+
+
             // let eventWebService = globalThis.container.get("EventWebService")
 
-            let baseURL = '/bladerunner-punks-reader/'
+            let baseURL = '/r/bladerunner-punks/'
 
             $on('pageInit', async () => {
 
@@ -114,15 +131,18 @@
 
             })
 
-            document.querySelector('meta[property="og:title"]').setAttribute("content", "Transaction for BladeRunner Punks")
-            document.querySelector('meta[property="og:url"]').setAttribute("content", "/bladerunner-punks-reader/transaction")
-            document.querySelector('meta[property="og:image"]').setAttribute("content", "https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
-            document.querySelector('meta[property="og:description"]').setAttribute("content", "Transaction for BladeRunner Punks")
+            
 
-            document.querySelector('meta[property="twitter:url"]').setAttribute("content", "/bladerunner-punks-reader/transaction")
-            document.querySelector('meta[property="twitter:title"]').setAttribute("content", "Transaction BladeRunner Punks")
-            document.querySelector('meta[property="twitter:image"]').setAttribute("content", "https://ptoner.gitlab.io/bladerunner-punks-reader/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
-            document.querySelector('meta[property="twitter:description"]').setAttribute("content", "Transaction for BladeRunner Punks" )
+document.querySelector('meta[property="og:title"]').setAttribute("content", "Transaction for BladeRunner Punks")
+document.querySelector('meta[property="og:url"]').setAttribute("content", "transaction")
+document.querySelector('meta[property="og:image"]').setAttribute("content", "https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
+document.querySelector('meta[property="og:description"]').setAttribute("content", "Transaction for BladeRunner Punks")
+
+document.querySelector('meta[property="twitter:url"]').setAttribute("content", "transaction")
+document.querySelector('meta[property="twitter:title"]').setAttribute("content", "Transaction for BladeRunner Punks")
+document.querySelector('meta[property="twitter:image"]').setAttribute("content", "https://golarge.app/r/bladerunner-punks/backup/export/images/QmYYvPrMfP7z649THRXufzPe17B5bssVhEgiDvCR5fbEcJ.jpg")
+document.querySelector('meta[property="twitter:description"]').setAttribute("content", "Transaction for BladeRunner Punks" )
+
 
             document.querySelector('title').innerHTML = "Transaction BladeRunner Punks"
 
@@ -135,21 +155,20 @@
 
     </script>
 
-    <script type="module" id="page-scripts">
+    
 
-        let baseURL = '/bladerunner-punks-reader/'
-        let hostname = 'https://ptoner.gitlab.io'
-        let channelId = '7be060f4-5476-4378-b39a-e752f833f544'
-        let version = atob('IjAuNS4xNi1hbHBoYSI=').replace('"', '').replace('"', '')
+<script type="module" id="page-scripts">
 
-        let routablePages = JSON.parse(`[{"name":"Privacy","locations":["none"],"slug":"privacy"},{"name":"Terms of Service","locations":["none"],"slug":"terms"},{"name":"Disclaimer","locations":["none"],"slug":"disclaimer"}]`)
+    let baseURL = '/r/bladerunner-punks/'
+    let hostname = 'https://golarge.app'
+    let channelId = '7be060f4-5476-4378-b39a-e752f833f544'
+    let version = atob('IjAuOC40Ig==').replace('"', '').replace('"', '')
 
-        let app = reader.initReader(baseURL, hostname, version, routablePages, channelId )
+    let routablePages = JSON.parse(`[]`)
 
+    let app = reader.initReader(baseURL, hostname, version, routablePages, channelId)
 
-
-    </script>
-
+</script>
 </body>
 
 </html>

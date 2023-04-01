@@ -12,8 +12,7 @@
     "generate:dev": "node node_modules/large-nft/public/generate/index.js --env dev",
     "sync": "node --no-experimental-fetch node_modules/large-nft/public/sync/index.js",
     "start": "node --no-experimental-fetch node_modules/large-nft/public/start.js",
-    "generate:after": "node src/build.js",
-    "deploy": "node --no-experimental-fetch node_modules/large-nft/public/sync/deploy.js"
+    "generate:after": ""
   },
   "keywords": [],
   "author": "Patrick Toner",
@@ -23,11 +22,13 @@
   },
   "type": "module",
   "devDependencies": {
-
+    
     "http-server": "14.1.1",
-    "express": "4.18.2",
+    "fastify": "4.12.0",
+    "@fastify/static": "6.8.0",
     "convert-svg-to-png": "0.6.4",
+    "sharp": "0.31.3",
 
-    "large-nft": "*"
+    "large-nft": "^0.5.21"
   }
 }
